@@ -15,7 +15,10 @@ class HomeScreen extends Component {
   handleLogin =()=>{
     const {email, password} = this.state;
 
-    firebase.auth().signInWithEmailAndPassword(email, password).catch(err => this.setState(err))
+    firebase
+    .auth()
+    .signInWithEmailAndPassword(email, password)
+    .catch(err => this.setState(err))
     console.log(this.state.err);
 
 
@@ -54,9 +57,9 @@ class HomeScreen extends Component {
             <Text style={{color:"#FFFFFF", fontWeight:"bold"}}>Sign In</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity style={styles.button1}>
+          <TouchableOpacity style={styles.button1} onPress={()=> this.props.navigation.navigate('SignUp')}>
             <Text style={{color:"#FFFFFF", fontWeight:"bold"}}
-            onPress={()=> this.props.navigation.navigate('SignUp')}
+            
             >Sign Up</Text>
           </TouchableOpacity>
 

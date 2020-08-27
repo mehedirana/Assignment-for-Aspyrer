@@ -1,12 +1,13 @@
 
 import React, { Component } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, ActivityIndicator } from 'react-native';
 
 class LoadScreen extends Component {
   render(){
   return (
     <View style={styles.container}>
-      <Text>Sign up</Text>
+      <Text>Loading..</Text>
+      <ActivityIndicator size="large"></ActivityIndicator>
     </View>
   );
   }
