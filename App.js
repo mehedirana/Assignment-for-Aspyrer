@@ -4,7 +4,6 @@ import { createStackNavigator } from '@react-navigation/stack';
 import SignInScreen from './screens/SignInScreen';
 import HomeScreen from './screens/HomeScreen';
 import SignUpScreen from './screens/SignUpScreen';
-import LoadScreen from './screens/LoadScreen';
 import * as firebase from 'firebase';
 
 var firebaseConfig = {
@@ -25,10 +24,11 @@ class App extends Component {
   render(){
   return (
     <NavigationContainer>
-    <Stack.Navigator>
-      <Stack.Screen name="SignIn" component={SignInScreen}/>
-      <Stack.Screen name="SignUp" component={SignUpScreen}/>
-      <Stack.Screen name="Load" component={LoadScreen}/>
+    <Stack.Navigator screenOptions={{
+    headerShown: false
+  }}>
+      <Stack.Screen name="SignIn" component={SignInScreen} />
+      <Stack.Screen name="SignUp" component={SignUpScreen} />
       <Stack.Screen name="Home" component={HomeScreen}/>
     </Stack.Navigator>
     </NavigationContainer>

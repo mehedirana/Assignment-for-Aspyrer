@@ -2,6 +2,7 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { TextInput, TouchableOpacity } from 'react-native-gesture-handler';
+import {Ionicons} from '@expo/vector-icons';
 import * as firebase from "firebase";
 
 class SignUpScreen extends Component {
@@ -32,6 +33,18 @@ class SignUpScreen extends Component {
   render() {
     return (
       <View style={styles.container}>
+      <View style={{marginTop:30}} >
+      <Text style={{textAlign:"center",justifyContent:"center", alignContent:"center", fontSize:15}}>Sign up</Text>
+            <TouchableOpacity style={styles.avater}>
+            <Ionicons
+            name="ios-add"
+            size={40}
+            color="#FFFFFF"
+            style={{marginTop:6,marginLeft:2}}
+            ></Ionicons>
+
+            </TouchableOpacity>
+        </View>
         <View style={styles.form}>
         <View>
             <Text style={styles.inputTitle}>FULL NAME</Text>
@@ -73,7 +86,7 @@ class SignUpScreen extends Component {
 
         </View>
 
-        <View style={{ margin:30, flexDirection:"column",}}>
+        <View style={{ flexDirection:"column",}}>
         
 
           <TouchableOpacity style={styles.button1} onPress={this.handleSignUp}>
@@ -81,7 +94,7 @@ class SignUpScreen extends Component {
             CREATE</Text>
           </TouchableOpacity>
 
-          <View style={{flexDirection:'row', marginLeft:40}}>
+          <View style={{flexDirection:'row', marginLeft:75, marginTop:15}}>
             <Text style={{color:"#8A8F9E", marginTop:10, alignSelf:"center", }}>ALREADY HAVE AN ACCOUNT?</Text>
 
             <TouchableOpacity onPress={()=> this.props.navigation.navigate('SignIn')}>
@@ -135,7 +148,6 @@ const styles = StyleSheet.create({
 
   },
   button1: {
-    marginTop:10,
     marginHorizontal: 20,
     backgroundColor: "#00ced0",
     borderRadius: 30,
@@ -143,5 +155,15 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center"
 
+  },
+  avater: {
+    width: 100,
+    height: 100,
+    borderRadius: 50,
+    backgroundColor: "#8A8F9E",
+    marginTop: 48,
+    justifyContent: "center",
+    alignItems: "center",
+    marginLeft:155
   }
 });

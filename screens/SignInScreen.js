@@ -99,7 +99,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
   },
   form: {
-    marginTop: 80,
+    marginTop: 250,
     marginBottom: 48,
     marginHorizontal: 30
   },
