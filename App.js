@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import HomeScreen from './screens/HomeScreen';
+import HomeScreen from './screens/SignInScreen';
 import SignUpScreen from './screens/SignUpScreen';
 import LoadScreen from './screens/LoadScreen';
 import * as firebase from 'firebase';
@@ -25,7 +25,7 @@ class App extends Component {
   return (
     <NavigationContainer>
     <Stack.Navigator>
-      <Stack.Screen name="Home" component={HomeScreen}/>
+      <Stack.Screen name="SignIn" component={HomeScreen}/>
       <Stack.Screen name="SignUp" component={SignUpScreen}/>
       <Stack.Screen name="Load" component={LoadScreen}/>
     </Stack.Navigator>

@@ -4,43 +4,29 @@ import { StyleSheet, Text, View } from 'react-native';
 import { TextInput, TouchableOpacity } from 'react-native-gesture-handler';
 import * as firebase from "firebase";
 
-class SignUpScreen extends Component {
+class SignInScreen extends Component {
 
   state ={
     email: "",
     password:"",
-    name: "",
-    birthday: "",
-    err: null,
+    err: null
   };
 
-  handleSignUp =()=>{
+  handleLogin =()=>{
+    const {email, password} = this.state;
 
     firebase
     .auth()
-    .createUserWithEmailAndPassword(this.state.email, this.state.password)
-    .then(userCredentials => {
-      return userCredentials.user.updateProfile({
-        displayName: this.state.name
-      });
-    })
-    .catch(err => this.setState({err: err.message}))
+    .signInWithEmailAndPassword(email, password)
+    .catch(err => this.setState({err}))
     console.log(this.state.err);
+
 
   }
   render() {
     return (
       <View style={styles.container}>
         <View style={styles.form}>
-        <View>
-            <Text style={styles.inputTitle}>FULL NAME</Text>
-            <TextInput
-              style={styles.input}
-              autoCapitalize="none"
-              onChangeText={name =>{this.setState({name})}}
-              value ={this.state.name}
-            />
-          </View>
           <View>
             <Text style={styles.inputTitle}>email</Text>
             <TextInput
@@ -60,38 +46,24 @@ class SignUpScreen extends Component {
               value={this.state.password}
             />
           </View>
-          <View>
-            <Text style={styles.inputTitle}>BIRTHDAY</Text>
-            <TextInput
-              style={styles.input}
-              autoCapitalize="none"
-              onChangeText={birthday =>{this.setState({birthday})}}
-              value ={this.state.birthday}
-            />
-          </View>
 
         </View>
 
         <View style={{ margin:30, flexDirection:"column",}}>
         
-
-          <TouchableOpacity style={styles.button1} onPress={this.handleSignUp}>
-            <Text style={{color:"#FFFFFF", fontWeight:"bold"}}>
-            CREATE</Text>
+          <TouchableOpacity style={styles.button}
+          onPress={this.handleLogin}
+          >
+            <Text style={{color:"#FFFFFF", fontWeight:"bold"}}>Sign In</Text>
           </TouchableOpacity>
 
-          <View style={{flexDirection:'row', marginLeft:40}}>
-            <Text style={{color:"#8A8F9E", marginTop:10, alignSelf:"center", }}>ALREADY HAVE AN ACCOUNT?</Text>
-
-            <TouchableOpacity onPress={()=> this.props.navigation.navigate('SignIn')}>
-            <Text style={{color:"#8A8F9E", fontWeight:"bold",marginTop:10, marginLeft:30}}
+          <TouchableOpacity style={styles.button1} onPress={()=> this.props.navigation.navigate('SignUp')}>
+            <Text style={{color:"#FFFFFF", fontWeight:"bold"}}
             
-            >SIGN IN</Text>
+            >Sign Up</Text>
           </TouchableOpacity>
 
-            </View>
-
-          
+          <Text style={{color:"#8A8F9E", marginTop:10, alignSelf:"center", fontWeight:"bold"}}>OR LOGING USING</Text>
 
         </View>
 
@@ -99,7 +71,7 @@ class SignUpScreen extends Component {
     );
   }
 }
-export default SignUpScreen;
+export default SignInScreen;
 
 const styles = StyleSheet.create({
   container: {
