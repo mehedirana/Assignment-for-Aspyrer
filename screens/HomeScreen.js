@@ -2,17 +2,23 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { TextInput, TouchableOpacity } from 'react-native-gesture-handler';
+import * as firebase from "firebase";
 
 class HomeScreen extends Component {
 
   state ={
     email: "",
     password:"",
+    err: null
   };
 
   handleLogin =()=>{
     const {email, password} = this.state;
-    
+
+    firebase.auth().signInWithEmailAndPassword(email, password).catch(err => this.setState(err))
+    console.log(this.state.err);
+
+
   }
   render() {
     return (
