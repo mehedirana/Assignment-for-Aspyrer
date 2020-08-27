@@ -27,7 +27,7 @@ class SignUpScreen extends Component {
       });
     })
     .catch(err => this.setState({err: err.message}))
-    console.log(this.state.err);
+    alert(this.state.err)
 
   }
   render() {

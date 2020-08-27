@@ -2,6 +2,7 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { TextInput, TouchableOpacity } from 'react-native-gesture-handler';
+import { Entypo } from '@expo/vector-icons';
 import * as firebase from "firebase";
 
 class SignInScreen extends Component {
@@ -12,7 +13,12 @@ class SignInScreen extends Component {
     err: null
   };
 
+  googleLogIn = () =>{
+    
+  }
+  facebookLogIn = () =>{
 
+  }
 
   handleLogin = () => {
     const { email, password } = this.state;
@@ -22,73 +28,73 @@ class SignInScreen extends Component {
       .signInWithEmailAndPassword(email, password)
       .then((response) => {
         var user = firebase.auth().currentUser;
-        if(user){
-             this.props.navigation.navigate('Home');
-              }
+        if (user) {
+          this.props.navigation.navigate('Home');
+        }
       })
       .catch(error => {
         alert(error)
       })
   }
 
-  // .catch(err => this.setState({err: err.message}))
-  // console.log(this.state.err);
 
-  // var user = firebase.auth().currentUser;
-  // if(user){
-  //   this.props.navigation.navigate('Home');
-  // }
+  render() {
+    return (
+      <View style={styles.container}>
+        <View style={styles.form}>
+          <View>
+            <Text style={styles.inputTitle}>email</Text>
+            <TextInput
+              style={styles.input}
+              autoCapitalize="none"
+              onChangeText={email => { this.setState({ email }) }}
+              value={this.state.email}
+            />
+          </View>
+          <View>
+            <Text style={styles.inputTitle}>password</Text>
+            <TextInput
+              style={styles.input}
+              secureTextEntry
+              autoCapitalize="none"
+              onChangeText={password => { this.setState({ password }) }}
+              value={this.state.password}
+            />
+          </View>
 
-
-
-
-render() {
-  return (
-    <View style={styles.container}>
-      <View style={styles.form}>
-        <View>
-          <Text style={styles.inputTitle}>email</Text>
-          <TextInput
-            style={styles.input}
-            autoCapitalize="none"
-            onChangeText={email => { this.setState({ email }) }}
-            value={this.state.email}
-          />
         </View>
-        <View>
-          <Text style={styles.inputTitle}>password</Text>
-          <TextInput
-            style={styles.input}
-            secureTextEntry
-            autoCapitalize="none"
-            onChangeText={password => { this.setState({ password }) }}
-            value={this.state.password}
-          />
+
+        <View style={{ margin: 30, flexDirection: "column", }}>
+
+          <TouchableOpacity style={styles.button}
+            onPress={this.handleLogin}
+          >
+            <Text style={{ color: "#FFFFFF", fontWeight: "bold" }}>Sign In</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity style={styles.button1} onPress={() => this.props.navigation.navigate('SignUp')}>
+            <Text style={{ color: "#FFFFFF", fontWeight: "bold" }}
+
+            >Sign Up</Text>
+          </TouchableOpacity>
+
+          <Text style={{ color: "#8A8F9E", marginTop: 10, alignSelf: "center", fontWeight: "bold" }}>OR LOGING USING</Text>
+          <View style={{ flexDirection: "row", justifyContent: "center", marginTop:10, }}>
+
+            <TouchableOpacity onPress={this.googleLogIn}>
+              <Entypo name="facebook-with-circle" size={35} color="#8A8F9E" />
+            </TouchableOpacity>
+            <TouchableOpacity onPress={this.facebookLogIn}>
+              <Entypo name="google--with-circle" size={35} color="#8A8F9E" />
+            </TouchableOpacity>
+
+          </View>
+
         </View>
 
       </View>
-
-      <View style={{ margin: 30, flexDirection: "column", }}>
-
-        <TouchableOpacity style={styles.button}
-          onPress={this.handleLogin}
-        >
-          <Text style={{ color: "#FFFFFF", fontWeight: "bold" }}>Sign In</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity style={styles.button1} onPress={() => this.props.navigation.navigate('SignUp')}>
-          <Text style={{ color: "#FFFFFF", fontWeight: "bold" }}
-
-          >Sign Up</Text>
-        </TouchableOpacity>
-
-        <Text style={{ color: "#8A8F9E", marginTop: 10, alignSelf: "center", fontWeight: "bold" }}>OR LOGING USING</Text>
-
-      </View>
-
-    </View>
-  );
-}
+    );
+  }
 }
 
 export default SignInScreen;
