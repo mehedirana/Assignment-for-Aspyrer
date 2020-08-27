@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import { TextInput, TouchableOpacity } from 'react-native-gesture-handler';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 import * as firebase from "firebase";
 
 class HomeScreen extends Component{
@@ -15,7 +15,8 @@ class HomeScreen extends Component{
         this.setState({email, displayName});
     }
     signOutUser =()=>{
-        firebase.auth.signOut();
+        firebase.auth().signOut();
+        this.props.navigation.navigate('SignIn')
     }
 
     render(){
@@ -23,6 +24,7 @@ class HomeScreen extends Component{
             <View style={styles.container}>
                 <Text>{this.state.email}</Text>
                 <TouchableOpacity style={{ margin: 32}} onPress={this.signOutUser}>
+                <Text>Log Out</Text>
 
                 </TouchableOpacity>
             </View>

@@ -20,6 +20,7 @@ class SignUpScreen extends Component {
     .auth()
     .createUserWithEmailAndPassword(this.state.email, this.state.password)
     .then(userCredentials => {
+      this.props.navigation.navigate('Home');
       return userCredentials.user.updateProfile({
         displayName: this.state.name
       });

@@ -6,71 +6,91 @@ import * as firebase from "firebase";
 
 class SignInScreen extends Component {
 
-  state ={
+  state = {
     email: "",
-    password:"",
+    password: "",
     err: null
   };
 
-  handleLogin =()=>{
-    const {email, password} = this.state;
+
+
+  handleLogin = () => {
+    const { email, password } = this.state;
 
     firebase
-    .auth()
-    .signInWithEmailAndPassword(email, password)
-    .catch(err => this.setState({err}))
-    console.log(this.state.err);
-
-
+      .auth()
+      .signInWithEmailAndPassword(email, password)
+      .then((response) => {
+        var user = firebase.auth().currentUser;
+        if(user){
+             this.props.navigation.navigate('Home');
+              }
+      })
+      .catch(error => {
+        alert(error)
+      })
   }
-  render() {
-    return (
-      <View style={styles.container}>
-        <View style={styles.form}>
-          <View>
-            <Text style={styles.inputTitle}>email</Text>
-            <TextInput
-              style={styles.input}
-              autoCapitalize="none"
-              onChangeText={email =>{this.setState({email})}}
-              value ={this.state.email}
-            />
-          </View>
-          <View>
-            <Text style={styles.inputTitle}>password</Text>
-            <TextInput
-              style={styles.input}
-              secureTextEntry
-              autoCapitalize="none"
-              onChangeText={password=>{this.setState({password})}}
-              value={this.state.password}
-            />
-          </View>
 
+  // .catch(err => this.setState({err: err.message}))
+  // console.log(this.state.err);
+
+  // var user = firebase.auth().currentUser;
+  // if(user){
+  //   this.props.navigation.navigate('Home');
+  // }
+
+
+
+
+render() {
+  return (
+    <View style={styles.container}>
+      <View style={styles.form}>
+        <View>
+          <Text style={styles.inputTitle}>email</Text>
+          <TextInput
+            style={styles.input}
+            autoCapitalize="none"
+            onChangeText={email => { this.setState({ email }) }}
+            value={this.state.email}
+          />
         </View>
-
-        <View style={{ margin:30, flexDirection:"column",}}>
-        
-          <TouchableOpacity style={styles.button}
-          onPress={this.handleLogin}
-          >
-            <Text style={{color:"#FFFFFF", fontWeight:"bold"}}>Sign In</Text>
-          </TouchableOpacity>
-
-          <TouchableOpacity style={styles.button1} onPress={()=> this.props.navigation.navigate('SignUp')}>
-            <Text style={{color:"#FFFFFF", fontWeight:"bold"}}
-            
-            >Sign Up</Text>
-          </TouchableOpacity>
-
-          <Text style={{color:"#8A8F9E", marginTop:10, alignSelf:"center", fontWeight:"bold"}}>OR LOGING USING</Text>
-
+        <View>
+          <Text style={styles.inputTitle}>password</Text>
+          <TextInput
+            style={styles.input}
+            secureTextEntry
+            autoCapitalize="none"
+            onChangeText={password => { this.setState({ password }) }}
+            value={this.state.password}
+          />
         </View>
 
       </View>
-    );
-  }
+
+      <View style={{ margin: 30, flexDirection: "column", }}>
+
+        <TouchableOpacity style={styles.button}
+          onPress={this.handleLogin}
+        >
+          <Text style={{ color: "#FFFFFF", fontWeight: "bold" }}>Sign In</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity style={styles.button1} onPress={() => this.props.navigation.navigate('SignUp')}>
+          <Text style={{ color: "#FFFFFF", fontWeight: "bold" }}
+
+          >Sign Up</Text>
+        </TouchableOpacity>
+
+        <Text style={{ color: "#8A8F9E", marginTop: 10, alignSelf: "center", fontWeight: "bold" }}>OR LOGING USING</Text>
+
+      </View>
+
+    </View>
+  );
 }
+}
+
 export default SignInScreen;
 
 const styles = StyleSheet.create({
@@ -106,7 +126,7 @@ const styles = StyleSheet.create({
 
   },
   button1: {
-    marginTop:10,
+    marginTop: 10,
     marginHorizontal: 20,
     backgroundColor: "#00ced0",
     borderRadius: 30,
