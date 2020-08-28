@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { TextInput, TouchableOpacity } from 'react-native-gesture-handler';
 import { Entypo } from '@expo/vector-icons';
+import * as Google from 'expo-google-app-auth';
 import * as firebase from "firebase";
 
 class SignInScreen extends Component {
@@ -10,12 +11,35 @@ class SignInScreen extends Component {
   state = {
     email: "",
     password: "",
-    err: null
+    err: null,
   };
+  
 
-  googleLogIn = () =>{
-    
-  }
+    signInWithGoogleAsync = async ()=> {
+      try {
+        const result = await Google.logInAsync({
+          androidClientId: "383958588869-43lj98ut80fa4djid3clavkt36uhj22a.apps.googleusercontent.com",
+        //  iosClientId: YOUR_CLIENT_ID_HERE,
+          scopes: ['profile', 'email'],
+          
+        });
+        this.props.navigation.navigate('Home');
+        if (result.type === 'success') {
+          
+          console.log("//////////" +result.accessToken)  
+          return result.accessToken;
+        } else {
+          return { cancelled: true };
+        }
+      } catch (e) {
+        console.log("error : "+e)
+        return { error: true };
+      }
+    }
+  
+   
+
+
   facebookLogIn = () =>{
 
   }
@@ -79,12 +103,12 @@ class SignInScreen extends Component {
           </TouchableOpacity>
 
           <Text style={{ color: "#8A8F9E", marginTop: 10, alignSelf: "center", fontWeight: "bold" }}>OR LOGING USING</Text>
-          <View style={{ flexDirection: "row", justifyContent: "center", marginTop:10, }}>
+          <View style={{ flexDirection: "row",justifyContent:'space-between', marginTop:10, }}>
 
-            <TouchableOpacity onPress={this.googleLogIn}>
+            <TouchableOpacity style={{marginLeft:120}} onPress={this.facebookLogIn}>
               <Entypo name="facebook-with-circle" size={35} color="#8A8F9E" />
             </TouchableOpacity>
-            <TouchableOpacity onPress={this.facebookLogIn}>
+            <TouchableOpacity style={{marginRight:120}} onPress={this.signInWithGoogleAsync}>
               <Entypo name="google--with-circle" size={35} color="#8A8F9E" />
             </TouchableOpacity>
 
