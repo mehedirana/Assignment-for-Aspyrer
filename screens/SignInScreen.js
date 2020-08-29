@@ -16,26 +16,17 @@ class SignInScreen extends Component {
     err: null,
   };
   
-  // componentDidMount=()=>{
-  //   firebase.auth.OAuthCredential((user)=>{
-  //     if(user!=null){
-  //       console.log(user)
-  //     }
-  //   })
-  // }
 
     signInWithGoogleAsync = async ()=> {
       try {
         const result = await Google.logInAsync({
-          //behavior:'web',
           androidClientId: "383958588869-43lj98ut80fa4djid3clavkt36uhj22a.apps.googleusercontent.com",
-        //  iosClientId: YOUR_CLIENT_ID_HERE,
           scopes: ['profile', 'email'],
           
         });
         
         if (result.type === 'success') {
-        //  this.props.navigation.navigate('Home');
+         this.props.navigation.navigate('Home');
         alert("logIn")
           console.log("//////////" +result.accessToken)  
           return result.accessToken;
@@ -141,10 +132,10 @@ class SignInScreen extends Component {
           <Text style={{ color: "#8A8F9E", marginTop: 10, alignSelf: "center", fontWeight: "bold" }}>OR LOGING USING</Text>
           <View style={{ flexDirection: "row",justifyContent:'space-between', marginTop:10, }}>
 
-            <TouchableOpacity style={{marginLeft:120}} onPress={()=>this.facebookLogIn()}>
+            <TouchableOpacity style={{marginLeft:120}} onPress={this.facebookLogIn}>
               <Entypo name="facebook-with-circle" size={35} color="#8A8F9E" />
             </TouchableOpacity>
-            <TouchableOpacity style={{marginRight:120}} onPress={()=>this.signInWithGoogleAsync()}>
+            <TouchableOpacity style={{marginRight:120}} onPress={this.signInWithGoogleAsync}>
               <Entypo name="google--with-circle" size={35} color="#8A8F9E" />
             </TouchableOpacity>
 
